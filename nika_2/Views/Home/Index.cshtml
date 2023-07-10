@@ -1,0 +1,134 @@
+﻿@model IEnumerable<Shelves>
+
+@{
+    var delete = ViewBag.delete as bool? ?? false;
+}
+
+<nav>
+
+    <h1>
+        Shelves
+    </h1>
+
+
+    <h1>
+
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary Add" style="border: none; background-color: none;" data-toggle="modal" data-target="#AddModal" style="background: none;">
+            <i class="bi bi-plus-lg"></i>
+        </button>
+        @{
+            Html.RenderPartial("AddPartial");
+        }
+        </h1>
+
+    </nav>
+
+
+    <main>
+
+
+
+            @foreach (var item in Model)
+            {                
+                <div>
+                    <input disabled type="text" name="Name" placeholder="Name" value="@item.Name" />
+
+                    <input disabled type="text" name="Location" placeholder="Location" value="@item.Location" />
+
+                    <input disabled type="number" name="Capacity" placeholder="Capacity" value="@item.Capacity" />
+
+            <button type="button" class="btn-close" style="border: none;" data-toggle="modal" data-target="#exampleModal" style="background: none;"></button>
+
+                    @{
+                    Html.RenderPartial("DeletePartial", item);
+                    }
+
+                    <a asp-route-id="@item.Id" asp-action="UpdateShelve"><i class="bi bi-pencil-fill"></i></a>
+                </div>
+            }
+
+
+
+    </main>
+
+
+    <script>
+
+        $('.Add').click(function () {
+            $('#AddModal').modal('show');
+        });
+
+
+    </script>
+
+
+    <style>
+
+
+        nav
+        {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            gap: 27px;
+        }
+
+        nav h1
+        {
+            font-size: 40px;
+            font-family: sans-serif;
+        }
+
+        main
+        {
+            padding: 20px;
+            display: grid;
+            gap: 20px;
+            justify-content: center;
+        }
+
+
+        main div
+        {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            align-items: center;
+        }
+
+        main div a 
+        {
+            font-size: 30px
+        }
+
+        i
+        {
+            color: black;
+        }
+
+        input[name=Name], input[name=Capacity]
+        {
+            padding: 10px 40px 10px 10px;
+        }
+
+        input[name=Location]
+        {
+            padding: 10px 160px 10px 10px;
+        }
+
+
+        #popup
+        {
+            display: none;
+        }
+
+        .search
+        {
+            display: flex;
+            flex-direction: column;
+        }
+
+
+    </style>
+
